@@ -1,39 +1,20 @@
 <html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js/dist/ua-parser.min.js"></script>
+</head>
 <body>
-<p>Welcome, here is your user string:</p>
-<div id="userAgent"></div>
+<p>Raw user agent string from browser:</p>
+<pre id="userAgentRaw">Not Found</pre>
 
-<p id="osInfo">Your OS is X</p>
-<p id="browserInfo">Your browser is Y</p>
+<p>User Agent parsed by UAParser.js</p>
+<pre id="userAgentParsed"></pre>
 
 <script>
-    // Display the user agent string
-    document.getElementById('userAgent').innerText = navigator.userAgent;
-
-    var userAgent = navigator.userAgent;
-
-    // Initialize variables
-    var os = "Unknown OS";
-    var browser = "Unknown Browser";
-
-    // Determine OS
-    if (userAgent.indexOf("Win") !== -1) os = "Windows";
-    else if (userAgent.indexOf("Mac") !== -1) os = "MacOS";
-    else if (userAgent.indexOf("X11") !== -1) os = "UNIX";
-    else if (userAgent.indexOf("Linux") !== -1) os = "Linux";
-    else if (userAgent.indexOf("Android") !== -1) os = "Android";
-    else if (userAgent.indexOf("like Mac") !== -1) os = "iOS";
-
-    // Determine Browser
-    if (userAgent.indexOf("Chrome") !== -1) browser = "Chrome";
-    else if (userAgent.indexOf("Safari") !== -1) browser = "Safari";
-    else if (userAgent.indexOf("Firefox") !== -1) browser = "Firefox";
-    else if (userAgent.indexOf("MSIE") !== -1 || userAgent.indexOf("Trident") !== -1) browser = "Internet Explorer";
-    else if (userAgent.indexOf("Edge") !== -1) browser = "Edge";
-
-    // Update the paragraphs with OS and browser information
-    document.getElementById('osInfo').innerText = "Your OS is " + os;
-    document.getElementById('browserInfo').innerText = "Your browser is " + browser;
+    const uap = new UAParser();
+    console.log(uap.getResult());
+    document.getElementById('userAgentRaw').innerText = navigator.userAgent;
+    document.getElementById('userAgentParsed').innerText = JSON.stringify(uap.getResult(), null, 2);
 </script>
+
 </body>
 </html>
